@@ -10,9 +10,11 @@ type WordList struct {
 
 var words WordList
 
-func NewWordList() *WordList {
+func init() {
 	words.theList = append(words.theList, "apple", "boy", "cat", "damage")
+}
 
+func NewWordList() *WordList {
 	return &words
 }
 
