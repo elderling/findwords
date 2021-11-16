@@ -1,7 +1,11 @@
 package findwords
 
 import (
+	"bufio"
 	"fmt"
+	"os"
+	"path"
+	"runtime"
 )
 
 type WordList struct {
@@ -11,7 +15,22 @@ type WordList struct {
 var words WordList
 
 func init() {
-	words.theList = append(words.theList, "apple", "boy", "cat", "damage")
+	// We need the directory of the package because that's where we keep the word list
+	// Yes, this is a bit of a hack. Good enough for our use-cases, though
+	_, file, _, _ := runtime.Caller(0)
+	thePath := path.Dir(file)
+
+	// Yes, this only works for Unix-like OSes right now
+	f, err := os.Open(thePath + "/dict_merged_00.txt")
+	if err != nil {
+		fmt.Println("fail!")
+		panic(`Cant't open dictionary`)
+	}
+	input := bufio.NewScanner(f)
+	for input.Scan() {
+		words.theList = append(words.theList, input.Text())
+	}
+	f.Close()
 }
 
 func NewWordList() *WordList {
@@ -21,6 +40,5 @@ func NewWordList() *WordList {
 func (*WordList) AllWords() []string {
 	returnWords := make([]string, len(words.theList))
 	copy(returnWords, words.theList)
-	fmt.Println(returnWords)
 	return returnWords
 }
