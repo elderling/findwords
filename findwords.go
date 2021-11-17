@@ -56,3 +56,26 @@ func StringToMap(s string) map[string]int {
 
 	return theMap
 }
+
+func WordCanBeMadeFromLetters(word string, pool map[string]int) bool {
+	workingPool := make(map[string]int, len(pool))
+
+	// we don't want to mutate the argument
+	for k, v := range pool {
+		workingPool[k] = v
+	}
+
+	for _, key := range strings.Split(word, "") {
+		val, ok := workingPool[key]
+		if ok {
+			if val > 0 {
+				workingPool[key] = workingPool[key] - 1
+			}
+		} else {
+			return false
+		}
+	}
+
+	fmt.Println(workingPool)
+	return true
+}

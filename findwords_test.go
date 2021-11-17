@@ -37,3 +37,13 @@ func TestStringToMap(t *testing.T) {
 		t.Fatalf(`wrong count for letter "a"`)
 	}
 }
+
+func TestWordCanBeMadeFromLetters(t *testing.T) {
+	if WordCanBeMadeFromLetters("dog", StringToMap("abcdefg")) {
+		t.Fatalf(`"dog" not composable with provided letters`)
+	}
+
+	if !WordCanBeMadeFromLetters("cab", StringToMap("abcdefg")) {
+		t.Fatalf(`"cab" is composable with provided letters`)
+	}
+}
