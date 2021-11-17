@@ -25,3 +25,15 @@ func TestWordListFetchedOneTime(t *testing.T) {
 	}
 
 }
+
+func TestStringToMap(t *testing.T) {
+	theMap := StringToMap("abcdefghbb")
+
+	if theMap["a"] != 1 {
+		t.Fatalf(`wrong count for letter "a"`)
+	}
+
+	if theMap["b"] != 3 {
+		t.Fatalf(`wrong count for letter "a"`)
+	}
+}

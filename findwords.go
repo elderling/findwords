@@ -6,6 +6,7 @@ import (
 	"os"
 	"path"
 	"runtime"
+	"strings"
 )
 
 type WordList struct {
@@ -41,4 +42,17 @@ func (*WordList) AllWords() []string {
 	returnWords := make([]string, len(words.theList))
 	copy(returnWords, words.theList)
 	return returnWords
+}
+
+func StringToMap(s string) map[string]int {
+	theMap := make(map[string]int)
+
+	characters := strings.Split(s, "")
+
+	for _, val := range characters {
+		fmt.Println(val)
+		theMap[val]++
+	}
+
+	return theMap
 }
