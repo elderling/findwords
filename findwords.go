@@ -1,4 +1,4 @@
-package findwords
+package main
 
 import (
 	"bufio"
