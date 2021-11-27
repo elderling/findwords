@@ -13,6 +13,10 @@ type WordList struct {
 	theList []string
 }
 
+type Word struct {
+	theWord string
+}
+
 var words WordList
 
 func init() {
@@ -77,5 +81,33 @@ func WordCanBeMadeFromLetters(word string, pool map[string]int) bool {
 	}
 
 	fmt.Println(workingPool)
+	return true
+}
+
+func NewWord(theString string) *Word {
+	return &Word{
+		theWord: theString,
+	}
+}
+
+func (word *Word) CanBeMadeFromLetters(pool map[string]int) bool {
+	workingPool := make(map[string]int, len(pool))
+
+	// we don't want to mutate the argument
+	for k, v := range pool {
+		workingPool[k] = v
+	}
+
+	for _, key := range strings.Split(word.theWord, "") {
+		val, ok := workingPool[key]
+		if ok {
+			if val > 0 {
+				workingPool[key] = workingPool[key] - 1
+			}
+		} else {
+			return false
+		}
+	}
+
 	return true
 }

@@ -47,3 +47,25 @@ func TestWordCanBeMadeFromLetters(t *testing.T) {
 		t.Fatalf(`"cab" is composable with provided letters`)
 	}
 }
+
+func TestNewWord(t *testing.T) {
+	word := NewWord("cat")
+
+	if word.theWord != "cat" {
+		t.Fatalf(`failed to instantiate a *Word`)
+	}
+}
+
+func TestCanBeMadeFromLetters(t *testing.T) {
+	dog := NewWord("dog")
+
+	if dog.CanBeMadeFromLetters(StringToMap("abcdefg")) {
+		t.Fatalf(`"dog" not composable with provided letters`)
+	}
+
+	cab := NewWord("cab")
+
+	if !cab.CanBeMadeFromLetters(StringToMap("abcdefg")) {
+		t.Fatalf(`"cab" is composable with provided letters`)
+	}
+}
